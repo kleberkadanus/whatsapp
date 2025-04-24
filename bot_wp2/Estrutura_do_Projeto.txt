@@ -1,0 +1,67 @@
+whatsapp-bot/
+├── node_modules/                  # Dependências do Node.js (gerado pelo npm)
+├── public/                        # Frontend (arquivos estáticos)
+│   ├── css/
+│   │   ├── style.css              # Estilos principais
+│   │   ├── light-theme.css        # Tema claro
+│   │   └── dark-theme.css         # Tema escuro
+│   ├── js/
+│   │   ├── main.js                # JavaScript principal
+│   │   ├── auth.js                # Autenticação
+│   │   ├── dashboard.js           # Funcionalidades do dashboard
+│   │   ├── clients.js             # Gerenciamento de clientes
+│   │   ├── menus.js               # Editor de menus
+│   │   └── connections.js         # Gestão de conexões
+│   ├── pages/
+│   │   ├── dashboard.html         # Página do dashboard
+│   │   ├── clients.html           # Página de clientes
+│   │   ├── menus.html             # Página de menus
+│   │   ├── connections.html       # Página de conexões
+│   │   ├── messages-config.html   # Configuração de mensagens
+│   │   ├── agents.html            # Gestão de atendentes
+│   │   ├── ratings.html           # Avaliações
+│   │   ├── schedule.html          # Agenda
+│   │   └── settings.html          # Configurações gerais
+│   ├── img/
+│   │   ├── logo.png               # Logo da empresa
+│   │   └── user-avatar.png        # Avatar padrão
+│   └── index.html                 # Página principal do painel
+├── backend/                       # Módulos do backend
+│   ├── schedulingHandlers.js      # Agendamento de visitas técnicas
+│   ├── reminderService.js         # Serviço de lembretes
+│   ├── agentRouter.js             # Encaminhamento para agentes
+│   ├── ratingSystem.js            # Sistema de avaliação
+│   ├── financialModule.js         # Módulo financeiro (PIX, boletos)
+│   ├── userRegistration.js        # Cadastro e LGPD
+│   ├── postSaleService.js         # Serviço de pós-venda
+│   ├── messageRouter.js           # Roteador de mensagens
+│   ├── menuManager.js             # Gerenciador de menus
+│   ├── crypto-fix.js              # Correção para Baileys
+│   └── database.js                # Conexão com banco de dados
+├── routes/                        # Rotas da API
+│   ├── auth.js                    # Rotas de autenticação
+│   ├── clients.js                 # Rotas de clientes
+│   ├── menus.js                   # Rotas de menus
+│   ├── connections.js             # Rotas de conexões
+│   ├── messages.js                # Rotas de mensagens
+│   ├── schedules.js               # Rotas de agendamentos
+│   ├── invoices.js                # Rotas de boletos
+│   └── settings.js                # Rotas de configurações
+├── resources/                     # Recursos estáticos
+│   ├── termos_lgpd.pdf            # Termos de uso e LGPD
+│   └── pix_qrcode.png             # QR Code do PIX
+├── invoices/                      # Boletos em PDF
+│   └── (arquivos de boletos)
+├── auth_info/                     # Dados de autenticação WhatsApp
+│   └── (gerado pelo Baileys)
+├── sql/                           # Scripts SQL
+│   ├── create_database.sql        # Script principal de criação
+│   └── whatsapp_connections.sql   # Tabelas para conexões
+├── config/                        # Configurações do sistema
+│   ├── database.config.js         # Configuração de banco de dados
+│   └── app.config.js              # Configurações da aplicação
+├── .env                           # Variáveis de ambiente
+├── 
+├── package.json                   # Dependências e scripts npm
+├── index.js                       # Ponto de entrada principal
+└── README.md                      # Documentação do projeto

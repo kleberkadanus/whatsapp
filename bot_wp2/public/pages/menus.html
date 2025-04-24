@@ -1,0 +1,224 @@
+<!-- Menus Page -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0">Gerenciamento de Menus</h1>
+    <button class="btn btn-primary" id="add-menu-btn">
+      <i class="fas fa-plus"></i> Adicionar Menu
+    </button>
+  </div>
+  
+  <div class="row">
+    <!-- Menu Tree View -->
+    <div class="col-md-4 mb-4">
+      <div class="card shadow h-100">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+          <h6 class="m-0 font-weight-bold text-primary">Estrutura de Menus</h6>
+          <button class="btn btn-sm btn-outline-primary" id="refresh-menus-btn">
+            <i class="fas fa-sync-alt"></i>
+          </button>
+        </div>
+        <div class="card-body">
+          <div id="menu-tree-loader" class="text-center py-4">
+            <div class="loader"></div>
+            <p class="mt-3">Carregando menus...</p>
+          </div>
+          <div id="menu-tree" class="d-none">
+            <!-- Menu tree will be loaded here -->
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Menu Editor -->
+    <div class="col-md-8">
+      <div class="card shadow h-100">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary" id="menu-editor-title">Editor de Menu</h6>
+        </div>
+        <div class="card-body">
+          <div id="menu-editor-placeholder" class="text-center py-5">
+            <i class="fas fa-arrow-left fa-3x mb-3 text-muted"></i>
+            <h5>Selecione um menu</h5>
+            <p class="text-muted">Clique em um menu na estrutura à esquerda para editar.</p>
+          </div>
+          
+          <div id="menu-editor-form" class="d-none">
+            <form id="menu-form">
+              <input type="hidden" id="menu-id">
+              <input type="hidden" id="menu-key">
+              
+              <div class="mb-3">
+                <label for="menu-title" class="form-label">Título do Menu</label>
+                <input type="text" class="form-control" id="menu-title" required>
+              </div>
+              
+              <div class="mb-3">
+                <label for="menu-message" class="form-label">Mensagem (opcional)</label>
+                <textarea class="form-control" id="menu-message" rows="3"></textarea>
+                <small class="form-text text-muted">Esta mensagem será exibida antes das opções do menu.</small>
+              </div>
+              
+              <hr class="my-4">
+              
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5>Opções do Menu</h5>
+                <button type="button" class="btn btn-sm btn-success" id="add-option-btn">
+                  <i class="fas fa-plus"></i> Adicionar Opção
+                </button>
+              </div>
+              
+              <div id="menu-options-container">
+                <!-- Options will be added here -->
+              </div>
+              
+              <div class="alert alert-info mt-3">
+                <i class="fas fa-info-circle"></i> Dica: Arraste as opções para reordenar.
+              </div>
+              
+              <div class="d-flex justify-content-between mt-4">
+                <button type="button" class="btn btn-danger" id="delete-menu-btn">
+                  <i class="fas fa-trash"></i> Excluir Menu
+                </button>
+                <button type="submit" class="btn btn-primary">
+                  <i class="fas fa-save"></i> Salvar Alterações
+                </button>
+              </div>
+            </form>
+          </div>
+          
+          <div id="menu-editor-loader" class="text-center py-5 d-none">
+            <div class="loader"></div>
+            <p class="mt-3">Carregando menu...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Option Template -->
+  <template id="menu-option-template">
+    <div class="menu-option mb-3">
+      <div class="card">
+        <div class="card-header bg-light d-flex align-items-center">
+          <div class="menu-option-drag-handle me-2">
+            <i class="fas fa-grip-vertical"></i>
+          </div>
+          <div class="flex-grow-1">
+            <span class="option-title">Nova Opção</span>
+          </div>
+          <div>
+            <button type="button" class="btn btn-sm btn-outline-danger remove-option-btn">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-2">
+              <div class="mb-3">
+                <label class="form-label">ID da Opção</label>
+                <input type="number" class="form-control option-id" min="0" required>
+              </div>
+            </div>
+            <div class="col-md-10">
+              <div class="mb-3">
+                <label class="form-label">Título da Opção</label>
+                <input type="text" class="form-control option-title-input" required>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mb-3">
+            <label class="form-label">Ação</label>
+            <select class="form-select option-handler">
+              <option value="">Nenhuma ação (apenas próximo menu)</option>
+              <option value="forward">Encaminhar para atendente</option>
+              <option value="startScheduling">Iniciar agendamento</option>
+              <option value="sendPixKey">Enviar chave PIX</option>
+              <option value="listInvoices">Listar boletos</option>
+            </select>
+          </div>
+          
+          <div class="option-handler-config">
+            <!-- Handler-specific config will be added here -->
+          </div>
+          
+          <div class="mb-3 option-next-menu-container">
+            <label class="form-label">Próximo Menu</label>
+            <select class="form-select option-next-menu">
+              <option value="">Nenhum (finalizar ou depende da ação)</option>
+              <!-- Menu options will be added here -->
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+  
+  <!-- Handler Configs Templates -->
+  <template id="forward-handler-config">
+    <div class="mb-3">
+      <label class="form-label">Atendente</label>
+      <select class="form-select option-agent">
+        <option value="">Selecione um atendente</option>
+        <!-- Agents will be added here -->
+      </select>
+      <small class="form-text text-muted">Selecione o atendente para o qual esta opção deve encaminhar.</small>
+    </div>
+  </template>
+  
+  <!-- Menu Add Modal -->
+  <div class="modal fade" id="addMenuModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Adicionar Novo Menu</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body">
+          <form id="add-menu-form">
+            <div class="mb-3">
+              <label for="new-menu-key" class="form-label">Chave do Menu</label>
+              <input type="text" class="form-control" id="new-menu-key" required>
+              <small class="form-text text-muted">Use apenas letras minúsculas, números e underscore (_).</small>
+            </div>
+            
+            <div class="mb-3">
+              <label for="new-menu-title" class="form-label">Título do Menu</label>
+              <input type="text" class="form-control" id="new-menu-title" required>
+            </div>
+            
+            <div class="mb-3">
+              <label for="new-menu-message" class="form-label">Mensagem (opcional)</label>
+              <textarea class="form-control" id="new-menu-message" rows="3"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" id="add-menu-confirm-btn">Adicionar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Delete Menu Confirmation Modal -->
+  <div class="modal fade" id="deleteMenuModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Confirmar Exclusão</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body">
+          <p>Tem certeza que deseja excluir o menu <strong id="delete-menu-name"></strong>?</p>
+          <div class="alert alert-danger">
+            <i class="fas fa-exclamation-triangle"></i> Atenção: Esta ação não pode ser desfeita e pode causar problemas se o menu for referenciado por outros menus.
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-danger" id="delete-menu-confirm-btn">Excluir</button>
+        </div>
+      </div>
+    </div>
+  </div>
