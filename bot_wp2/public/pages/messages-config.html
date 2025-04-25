@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuração de Mensagens | WhatsApp Bot</title>
+    
+    <!-- CSS Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- CSS Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    
+    <!-- CSS Personalizado -->
+    <link rel="stylesheet" href="../css/style.css">
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar -->
+        <div class="border-end bg-white" id="sidebar-wrapper">
+            <div class="sidebar-heading border-bottom bg-light">
+                <img src="../img/logo.png" alt="Logo" class="sidebar-logo">
+                <span>WhatsApp Bot</span>
+            </div>
+            <div class="list-group list-group-flush">
+                <a href="dashboard.html" class="list-group-item list-group-item-action p-3">
+                    <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+                </a>
+                <a href="clients.html" class="list-group-item list-group-item-action p-3">
+                    <i class="fas fa-users me-2"></i> Clientes
+                </a>
+                <a href="menus.html" class="list-group-item list-group-item-action p-3">
+                    <i class="fas fa-sitemap me-2"></i> Menus
+                </a>
+                <a href="connections.html" class="list-group-item list-group-item-action p-3">
+                    <i class="fas fa-plug me-2"></i> Conexões
+                </a>
+                <a href="messages-config.html" class="list-group-item list-group-item-action p-3 active">
+                    <i class="fas fa-comment-dots me-2"></i> Mensagens
+                </a>
+                <a href="agents.html" class="list-group-item list-group-item-action p-3">
+                    <i class="fas fa-headset me-2"></i> Atendentes
+                </a>
+                <a href="ratings.html" class="list-group-item list-group-item-action p-3">
+                    <i class="fas fa-star me-2"></i> Avaliações
+                </a>
+                <a href="schedule.html" class="list-group-item list-group-item-action p-3">
+                    <i class="fas fa-calendar-alt me-2"></i> Agenda
+                </a>
+                <a href="settings.html" class="list-group-item list-group-item-action p-3 admin-only">
+                    <i class="fas fa-cogs me-2"></i> Configurações
+                </a>
+            </div>
+        </div>
+        
+        <!-- Conteúdo da Página -->
+        <div id="page-content-wrapper">
+            <!-- Navbar Superior -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                <div class="container-fluid">
+                    <button class="btn btn-primary" id="sidebarToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img src="../img/user-avatar.png" alt="Avatar" class="user-avatar" id="user-avatar">
+                                    <span id="user-name">Usuário</span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="#" id="change-password-btn">
+                                        <i class="fas fa-key me-2"></i> Alterar Senha
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#" id="logout-btn">
+                                        <i class="fas fa-sign-out-alt me-2"></i> Sair
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            
+            <!-- Conteúdo Principal -->
+            <div class="container-fluid px-4 py-4" id="messages-config-page">
+                <h1 class="mb-4">Configuração de Mensagens</h1>
+                
+                <!-- Navegação por abas para diferentes categorias de mensagens -->
+                <ul class="nav nav-tabs mb-4" id="messagesTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="system-tab" data-bs-toggle="tab" data-bs-target="#system-pane" type="button" role="tab" aria-controls="system-pane" aria-selected="true">
+                            <i class="fas fa-cog me-2"></i> Sistema
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="welcome-tab" data-bs-toggle="tab" data-bs-target="#welcome-pane" type="button" role="tab" aria-controls="welcome-pane" aria-selected="false">
+                            <i class="fas fa-door-open me-2"></i> Boas-vindas
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="autoresponder-tab" data-bs-toggle="tab" data-bs-target="#autoresponder-pane" type="button" role="tab" aria-controls="autoresponder-pane" aria-selected="false">
+                            <i class="fas fa-reply-all me-2"></i> Respostas Automáticas
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="notifications-tab" data-bs-toggle="tab" data-bs-target="#notifications-pane" type="button" role="tab" aria-controls="notifications-pane" aria-selected="false">
+                            <i class="fas fa-bell me-2"></i> Notificações
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="postsale-tab" data-bs-toggle="tab" data-bs-target="#postsale-pane" type="button" role="tab" aria-controls="postsale-pane" aria-selected="false">
+                            <i class="fas fa-clipboard-check me-2"></i> Pós-venda
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="templates-tab" data-bs-toggle="tab" data-bs-target="#templates-pane" type="button" role="tab" aria-controls="templates-pane" aria-selected="false">
+                            <i class="fas fa-file-alt me-2"></i> Templates
+                        </button>
+                    </li>
+                </ul>
+                
+                <!-- Conteúdo das abas -->
+                <div class="tab-content" id="messagesTabContent">
+                    <!-- Mensagens de Sistema -->
+                    <div class="tab-pane fade show active" id="system-pane" role="tabpanel" aria-labelledby="system-tab">
+                        <div class="card mb-4">
+                            <div class="card-header bg-primary text-white">
+                                <h5 class="mb-0">Mensagens do Sistema</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="alert alert-info">
+                                    <i class="fas fa-info-circle me-2"></i> Estas mensagens são utilizadas em operações do sistema e são enviadas automaticamente em situações específicas.
+                                </div>
+                                
+                                <form id="system-messages-form">
+                                    <div class="mb-3">
+                                        <label for="not-found-message" class="form-label">Opção não encontrada</label>
+                                        <textarea class="form-control" id="not-found-message" rows="2" placeholder="Mensagem para quando o usuário selecionar uma opção inválida"></textarea>
+                                        <div class="form-text">Esta mensagem é enviada quando o usuário seleciona uma opção que não existe no menu atual.</div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="timeout-message" class="form-label">Tempo limite esgotado</label>
+                                        <textarea class="form-control" id="timeout-message" rows="2" placeholder="Mensagem para quando a sessão expirar por inatividade"></textarea>
+                                        <div class="form-text">Esta mensagem é enviada quando a sessão do usuário expira por inatividade.</div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="agent-transfer-message" class="form-label">Transferência para atendente</label>
+                                        <textarea class="form-control" id="agent-transfer-message" rows="2" placeholder="Mensagem para quando a conversa for transferida para um atendente"></textarea>
+                                        <div class="form-text">Esta mensagem é enviada quando a conversa é transferida para um atendente humano.</div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="queue-message" class="form-label">Fila de espera</label>
+                                        <textarea class="form-control" id="queue-message" rows="2" placeholder="Mensagem quando o cliente é colocado em fila de espera"></textarea>
+                                        <div class="form-text">Esta mensagem é enviada quando o cliente é colocado em uma fila de espera para atendimento.</div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="end-chat-message" class="form-label">Encerramento de atendimento</label>
+                                        <textarea class="form-control" id="end-chat-message" rows="2" placeholder="Mensagem de encerramento de atendimento"></textarea>
+                                        <div class="form-text">Esta mensagem é enviada quando um atendimento é encerrado.</div>
+                                    </div>
+                                    
+                                    <div class="d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-save me-2"></i> Salvar
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Mensagens de Boas-vindas -->
+                    <div class="tab-pane fade" id="welcome-pane" role="tabpanel" aria-labelledby="welcome-tab">
+                        <div class="card mb-4">
+                            <div class="card-header bg-success text-white">
+                                <h5 class="mb-0">Mensagens de Boas-vindas</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="alert alert-info">
+                                    <i class="fas fa-info-circle me-2"></i> Estas mensagens são enviadas quando um cliente inicia uma nova conversa ou retorna após um período de inatividade.
+                                </div>
+                                
+                                <form id="welcome-messages-form">
+                                    <div class="mb-3">
+                                        <label for="first-contact-message" class="form-label">Primeiro contato</label>
+                                        <textarea class="form-control" id="first-contact-message" rows="3" placeholder="Mensagem para o primeiro contato do cliente"></textarea>
+                                        <div class="form-text">Esta mensagem é enviada na primeira vez que um cliente entra em contato.</div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="return-message" class="form-label">Retorno de cliente</label>
+                                        <textarea class="form-control" id="return-message" rows="3" placeholder="Mensagem para clientes que retornam"></textarea>
+                                        <div class="form-text">Esta mensagem é enviada quando um cliente já cadastrado retorna após um período de inatividade.</div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="business-hours-message" class="form-label">Fora do horário de atendimento</label>
+                                        <textarea class="form-control" id="business-hours-message" rows="3" placeholder="Mensagem para contatos fora do horário de atendimento"></textarea>
+                                        <div class="form-text">Esta mensagem é enviada quando um cliente entra em contato fora do horário de atendimento.</div>
+                                    </div>
+                                    
+                                    <div class="mb-3 form-check">
+                                        <input type="checkbox" class="form-check-input" id="include-menu-after-welcome">
+                                        <label class="form-check-label" for="include-menu-after-welcome">Incluir menu principal após mensagem de boas-vindas</label>
+                                    </div>
+                                    
+                                    <div class="d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-success">
+                                            <i class="fas fa-save me-2"></i> Salvar
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Respostas Automáticas -->
+                    <div class="tab-pane fade" id="autoresponder-pane" role="tabpanel" aria-labelledby="autoresponder-tab">
+                        <div class="card mb-4">
+                            <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">Respostas Automáticas</h5>
+                                <button type="button" class="btn btn-light btn-sm" id="add-autoresponder-btn">
+                                    <i class="fas fa-plus me-1"></i> Nova Resposta
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div class="alert alert-info">
+                                    <i class="fas fa-info-circle me-2"></i> Configure respostas automáticas para palavras-chave ou frases específicas.
+                                </div>
+                                
+                                <div class="table-responsive">
+                                    <table class="table table-hover" id="autoresponder-table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Palavras-chave</th>
+                                                <th scope="col">Resposta</th>
+                                                <th scope="col">Correspondência</th>
+                                                <th scope="col">Ativo</th>
+                                                <th scope="col" style="width: 120px;">Ações</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="5" class="text-center">
+                                                    <div class="loader mt-3 mb-3"></div>
+                                                    <p>Carregando respostas automáticas...</p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Notificações -->
+                    <div class="tab-pane fade" id="notifications-pane" role="tabpanel" aria-labelledby="notifications-tab">
+                        <div class="card mb-4">
+                            <div class="card-header bg-warning text-dark">
+                                <h5 class="mb-0">Mensagens de Notificação</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="alert alert-info">
+                                    <i class="fas fa-info-circle me-2"></i> Estas mensagens são utilizadas para enviar notificações automáticas aos clientes.
+                                </div>
+                                
+                                <form id="notification-messages-form">
+                                    <div class="mb-3">
+                                        <label for="appointment-reminder" class="form-label">Lembrete de agendamento</label>
+                                        <textarea class="form-control" id="appointment-reminder" rows="3" placeholder="Mensagem de lembrete de agendamento"></textarea>
+                                        <div class="form-text">
+                                            Você pode usar as seguintes variáveis: {cliente}, {data}, {hora}, {serviço}
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="invoice-due" class="form-label">Vencimento de boleto</label>
+                                        <textarea class="form-control" id="invoice-due" rows="3" placeholder="Mensagem de lembrete de vencimento de boleto"></textarea>
+                                        <div class="form-text">
+                                            Você pode usar as seguintes variáveis: {cliente}, {vencimento}, {valor}, {referencia}
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="appointment-confirmation" class="form-label">Confirmação de agendamento</label>
+                                        <textarea class="form-control" id="appointment-confirmation" rows="3" placeholder="Mensagem de confirmação de agendamento"></textarea>
+                                        <div class="form-text">
+                                            Você pode usar as seguintes variáveis: {cliente}, {data}, {hora}, {serviço}
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="invoice-paid" class="form-label">Confirmação de pagamento</label>
+                                        <textarea class="form-control" id="invoice-paid" rows="3" placeholder="Mensagem de confirmação de pagamento"></textarea>
+                                        <div class="form-text">
+                                            Você pode usar as seguintes variáveis: {cliente}, {valor}, {referencia}, {data_pagamento}
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-warning">
+                                            <i class="fas fa-save me-2"></i> Salvar
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Pós-venda -->
+                    <div class="tab-pane fade" id="postsale-pane" role="tabpanel" aria-labelledby="postsale-tab">
+                        <div class="card mb-4">
+                            <div class="card-header bg-secondary text-white">
+                                <h5 class="mb-0">Mensagens de Pós-venda</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="alert alert-info">
+                                    <i class="fas fa-info-circle me-2"></i> Estas mensagens são enviadas como parte do processo de pós-venda e pesquisas de satisfação.
+                                </div>
+                                
+                                <form id="postsale-messages-form">
+                                    <div class="mb-3">
+                                        <label for="satisfaction-survey" class="form-label">Pesquisa de satisfação</label>
+                                        <textarea class="form-control" id="satisfaction-survey" rows="3" placeholder="Mensagem para pesquisa de satisfação"></textarea>
+                                        <div class="form-text">
+                                            Você pode usar as seguintes variáveis: {cliente}, {serviço}, {data_servico}
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="thank-you-feedback" class="form-label">Agradecimento por feedback</label>
+                                        <textarea class="form-control" id="thank-you-feedback" rows="3" placeholder="Mensagem de agradecimento por feedback"></textarea>
+                                        <div class="form-text">
+                                            Esta mensagem é enviada após o cliente responder à pesquisa de satisfação.
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="followup-message" class="form-label">Acompanhamento pós-serviço</label>
+                                        <textarea class="form-control" id="followup-message" rows="3" placeholder="Mensagem de acompanhamento pós-serviço"></textarea>
+                                        <div class="form-text">
+                                            Você pode usar as seguintes variáveis: {cliente}, {serviço}, {data_servico}
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-secondary">
+                                            <i class="fas fa-save me-2"></i> Salvar
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Templates -->
+                    <div class="tab-pane fade" id="templates-pane" role="tabpanel" aria-labelledby="templates-tab">
+                        <div class="card mb-4">
+                            <div class="card-header bg-danger text-white d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">Templates de Mensagens</h5>
+                                <button type="button" class="btn btn-light btn-sm" id="add-template-btn">
+                                    <i class="fas fa-plus me-1"></i> Novo Template
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div class="alert alert-info">
+                                    <i class="fas fa-info-circle me-2"></i> Crie templates para mensagens frequentemente utilizadas pelos atendentes.
+                                </div>
+                                
+                                <div class="table-responsive">
+                                    <table class="table table-hover" id="templates-table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Nome</th>
+                                                <th scope="col">Conteúdo</th>
+                                                <th scope="col">Categoria</th>
+                                                <th scope="col" style="width: 120px;">Ações</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="4" class="text-center">
+                                                    <div class="loader mt-3 mb-3"></div>
+                                                    <p>Carregando templates...</p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal para Resposta Automática -->
+    <div class="modal fade" id="autoresponderModal" tabindex="-1" aria-labelledby="autoresponderModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="autoresponderModalLabel">Nova Resposta Automática</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="autoresponder-form">
+                        <input type="hidden" id="autoresponder-id">
+                        
+                        <div class="mb-3">
+                            <label for="keywords" class="form-label">Palavras-chave</label>
+                            <input type="text" class="form-control" id="keywords" placeholder="Ex: horário,atendimento,funcionamento" required>
+                            <div class="form-text">Separe múltiplas palavras-chave com vírgulas.</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="response-message" class="form-label">Resposta</label>
+                            <textarea class="form-control" id="response-message" rows="4" required></textarea>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="match-type" class="form-label">Tipo de Correspondência</label>
+                            <select class="form-select" id="match-type" required>
+                                <option value="any">Qualquer palavra (OR)</option>
+                                <option value="all">Todas as palavras (AND)</option>
+                                <option value="exact">Frase exata</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="is-active" checked>
+                            <label class="form-check-label" for="is-active">
+                                Ativo
+                            </label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="save-autoresponder-btn">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal para Template -->
+    <div class="modal fade" id="templateModal" tabindex="-1" aria-labelledby="templateModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="templateModalLabel">Novo Template</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="template-form">
+                        <input type="hidden" id="template-id">
+                        
+                        <div class="mb-3">
+                            <label for="template-name" class="form-label">Nome do Template</label>
+                            <input type="text" class="form-control" id="template-name" placeholder="Ex: Saudação Inicial" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="template-content" class="form-label">Conteúdo</label>
+                            <textarea class="form-control" id="template-content" rows="4" required></textarea>
+                            <div class="form-text">
+                                Você pode usar as seguintes variáveis: {cliente}, {atendente}, {empresa}
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="template-category" class="form-label">Categoria</label>
+                            <select class="form-select" id="template-category" required>
+                                <option value="">Selecione uma categoria</option>
+                                <option value="greeting">Saudação</option>
+                                <option value="help">Ajuda</option>
+                                <option value="payment">Pagamento</option>
+                                <option value="schedule">Agendamento</option>
+                                <option value="support">Suporte</option>
+                                <option value="other">Outro</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="save-template-btn">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal Alterar Senha -->
+    <div class="modal fade" id="change-password-modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Alterar Senha</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="change-password-form">
+                        <div class="mb-3">
+                            <label for="current-password" class="form-label">Senha Atual</label>
+                            <input type="password" class="form-control" id="current-password" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="new-password" class="form-label">Nova Senha</label>
+                            <input type="password" class="form-control" id="new-password" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirm-password" class="form-label">Confirmar Nova Senha</label>
+                            <input type="password" class="form-control" id="confirm-password" required>
+                            <div class="mb-3">
+                                <label for="confirm-password" class="form-label">Confirmar Nova Senha</label>
+                                <input type="password" class="form-control" id="confirm-password" required>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" id="save-password-btn">Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- JavaScript Bootstrap -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+        
+        <!-- JavaScript Personalizado -->
+        <script src="../js/auth.js"></script>
+        <script src="../js/main.js"></script>
+        <script src="../js/messages-config.js"></script>
+    </body>
+    </html>
