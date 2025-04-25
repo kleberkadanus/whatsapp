@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda | WhatsApp Bot</title>
+    
+    <!-- CSS Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- CSS Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    
+    <!-- CSS Fullcalendar -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css">
+    
+    <!-- CSS Personalizado -->
+    <link rel="stylesheet" href="../css/style.css">
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar -->
+        <div class="border-end bg-white" id="sidebar-wrapper">
+            <div class="sidebar-heading border-bottom bg-light">
+                <img src="../img/logo.png" alt="Logo" class="sidebar-logo">
+                <span>WhatsApp Bot</span>
+            </div>
+            <div class="list-group list-group-flush">
+                <a href="dashboard.html" class="list-group-item list-group-item-action p-3">
+                    <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+                </a>
+                <a href="clients.html" class="list-group-item list-group-item-action p-3">
+                    <i class="fas fa-users me-2"></i> Clientes
+                </a>
+                <a href="menus.html" class="list-group-item list-group-item-action p-3">
+                    <i class="fas fa-sitemap me-2"></i> Menus
+                </a>
+                <a href="connections.html" class="list-group-item list-group-item-action p-3">
+                    <i class="fas fa-plug me-2"></i> Conexões
+                </a>
+                <a href="messages-config.html" class="list-group-item list-group-item-action p-3">
+                    <i class="fas fa-comment-dots me-2"></i> Mensagens
+                </a>
+                <a href="agents.html" class="list-group-item list-group-item-action p-3">
+                    <i class="fas fa-headset me-2"></i> Atendentes
+                </a>
+                <a href="ratings.html" class="list-group-item list-group-item-action p-3">
+                    <i class="fas fa-star me-2"></i> Avaliações
+                </a>
+                <a href="schedule.html" class="list-group-item list-group-item-action p-3 active">
+                    <i class="fas fa-calendar-alt me-2"></i> Agenda
+                </a>
+                <a href="settings.html" class="list-group-item list-group-item-action p-3 admin-only">
+                    <i class="fas fa-cogs me-2"></i> Configurações
+                </a>
+            </div>
+        </div>
+        
+        <!-- Conteúdo da Página -->
+        <div id="page-content-wrapper">
+            <!-- Navbar Superior -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                <div class="container-fluid">
+                    <button class="btn btn-primary" id="sidebarToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img src="../img/user-avatar.png" alt="Avatar" class="user-avatar" id="user-avatar">
+                                    <span id="user-name">Usuário</span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="#" id="change-password-btn">
+                                        <i class="fas fa-key me-2"></i> Alterar Senha
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#" id="logout-btn">
+                                        <i class="fas fa-sign-out-alt me-2"></i> Sair
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            
+            <!-- Conteúdo Principal -->
+            <div class="container-fluid px-4 py-4" id="schedule-page">
+                <h1 class="mb-4">Agenda de Visitas</h1>
+                
+                <!-- Ações Rápidas -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="d-flex justify-content-end">
+                            <button type="button" class="btn btn-primary me-2" id="new-appointment-btn">
+                                <i class="fas fa-plus me-2"></i> Novo Agendamento
+                            </button>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-success" id="export-schedule-btn">
+                                    <i class="fas fa-download me-2"></i> Exportar
+                                </button>
+                                <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <span class="visually-hidden">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#" id="export-excel">Excel</a></li>
+                                    <li><a class="dropdown-item" href="#" id="export-pdf">PDF</a></li>
+                                    <li><a class="dropdown-item" href="#" id="export-ical">iCalendar</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Resumo de Agendamentos -->
+                <div class="row mb-4">
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-primary h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            Total de Agendamentos</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="total-appointments">0</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-success h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            Confirmados</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="confirmed-appointments">0</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-check-circle fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-warning h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                            Pendentes</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="pending-appointments">0</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-clock fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-info h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                            Para Hoje</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="today-appointments">0</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-calendar-day fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Visualização da Agenda -->
+                <div class="row">
+                    <div class="col-lg-3">
+                        <!-- Filtros de Busca -->
+                        <div class="card mb-4">
+                            <div class="card-header bg-primary text-white">
+                                <h5 class="mb-0">Filtros</h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="filter-form">
+                                    <div class="mb-3">
+                                        <label for="filter-date-from" class="form-label">Data Inicial</label>
+                                        <input type="date" class="form-control" id="filter-date-from">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="filter-date-to" class="form-label">Data Final</label>
+                                        <input type="date" class="form-control" id="filter-date-to">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="filter-service-type" class="form-label">Tipo de Serviço</label>
+                                        <select class="form-select" id="filter-service-type">
+                                            <option value="">Todos</option>
+                                            <option value="Instalação">Instalação</option>
+                                            <option value="Manutenção">Manutenção</option>
+                                            <option value="Suporte">Suporte</option>
+                                            <option value="Visita Técnica">Visita Técnica</option>
+                                            <option value="Configuração">Configuração</option>
+                                            <option value="Outro">Outro</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="filter-status" class="form-label">Status</label>
+                                        <select class="form-select" id="filter-status">
+                                            <option value="">Todos</option>
+                                            <option value="confirmed">Confirmado</option>
+                                            <option value="pending">Pendente</option>
+                                            <option value="cancelled">Cancelado</option>
+                                            <option value="completed">Concluído</option>
+                                        </select>
+                                    </div>
+                                    <div class="d-grid gap-2">
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-search me-2"></i> Filtrar
+                                        </button>
+                                        <button type="reset" class="btn btn-secondary">
+                                            <i class="fas fa-eraser me-2"></i> Limpar
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        
+                        <!-- Próximos Agendamentos -->
+                        <div class="card mb-4">
+                            <div class="card-header bg-success text-white">
+                                <h5 class="mb-0">Próximos Agendamentos</h5>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="list-group list-group-flush" id="upcoming-list">
+                                    <div class="text-center p-3">
+                                        <div class="loader mt-3 mb-3"></div>
+                                        <p>Carregando agendamentos...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-9">
+                        <!-- Calendário -->
+                        <div class="card mb-4">
+                            <div class="card-header bg-info text-white">
+                                <h5 class="mb-0">Calendário</h5>
+                            </div>
+                            <div class="card-body">
+                                <div id="calendar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal para Novo/Editar Agendamento -->
+    <div class="modal fade" id="appointmentModal" tabindex="-1" aria-labelledby="appointmentModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="appointmentModalLabel">Novo Agendamento</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="appointment-form">
+                        <input type="hidden" id="appointment-id">
+                        
+                        <div class="row">
+                            <div class="col-md-8 mb-3">
+                                <label for="client-select" class="form-label">Cliente</label>
+                                <div class="input-group">
+                                    <select class="form-select" id="client-select" required>
+                                        <option value="">Selecione um cliente</option>
+                                    </select>
+                                    <button class="btn btn-outline-secondary" type="button" id="search-client-btn">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                    <button class="btn btn-outline-primary" type="button" id="new-client-btn">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-4 mb-3">
+                                <label for="client-phone" class="form-label">Telefone</label>
+                                <input type="text" class="form-control" id="client-phone" readonly>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="appointment-date" class="form-label">Data</label>
+                                <input type="date" class="form-control" id="appointment-date" required>
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <label for="appointment-time" class="form-label">Hora</label>
+                                <input type="time" class="form-control" id="appointment-time" required>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="service-type" class="form-label">Tipo de Serviço</label>
+                                <select class="form-select" id="service-type" required>
+                                    <option value="">Selecione</option>
+                                    <option value="Instalação">Instalação</option>
+                                    <option value="Manutenção">Manutenção</option>
+                                    <option value="Suporte">Suporte</option>
+                                    <option value="Visita Técnica">Visita Técnica</option>
+                                    <option value="Configuração">Configuração</option>
+                                    <option value="Outro">Outro</option>
+                                </select>
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <label for="appointment-status" class="form-label">Status</label>
+                                <select class="form-select" id="appointment-status" required>
+                                    <option value="pending">Pendente</option>
+                                    <option value="confirmed">Confirmado</option>
+                                    <option value="cancelled">Cancelado</option>
+                                    <option value="completed">Concluído</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="appointment-location" class="form-label">Endereço</label>
+                            <input type="text" class="form-control" id="appointment-location">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="appointment-description" class="form-label">Descrição</label>
+                            <textarea class="form-control" id="appointment-description" rows="3"></textarea>
+                        </div>
+                        
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="send-notification" checked>
+                            <label class="form-check-label" for="send-notification">
+                                Enviar notificação para o cliente
+                            </label>
+                        </div>
+                        
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="send-reminder">
+                            <label class="form-check-label" for="send-reminder">
+                                Enviar lembrete 1 hora antes
+                            </label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="save-appointment-btn">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal para Visualizar Agendamento -->
+    <div class="modal fade" id="viewAppointmentModal" tabindex="-1" aria-labelledby="viewAppointmentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viewAppointmentModalLabel">Detalhes do Agendamento</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Cliente</label>
+                        <p id="view-client-name">Carregando...</p>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Telefone</label>
+                        <p id="view-client-phone">Carregando...</p>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Data e Hora</label>
+                        <p id="view-appointment-datetime">Carregando...</p>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Tipo de Serviço</label>
+                        <p id="view-service-type">Carregando...</p>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Status</label>
+                        <p id="view-appointment-status">Carregando...</p>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Endereço</label>
+                        <p id="view-appointment-location">Carregando...</p>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Descrição</label>
+                        <p id="view-appointment-description">Carregando...</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-warning" id="edit-appointment-btn">Editar</button>
+                    <button type="button" class="btn btn-success" id="complete-appointment-btn">Concluir</button>
+                    <button type="button" class="btn btn-danger" id="cancel-appointment-btn">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal de Busca de Cliente -->
+    <div class="modal fade" id="searchClientModal" tabindex="-1" aria-labelledby="searchClientModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="searchClientModalLabel">Buscar Cliente</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="client-search-input" placeholder="Nome ou telefone do cliente">
+                            <button class="btn btn-primary" type="button" id="perform-client-search">
+                                <i class="fas fa-search"></i> Buscar
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="clients-search-table">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Telefone</th>
+                                    <th>Email</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="4" class="text-center">
+                                        <p>Digite um termo de busca acima</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal Alterar Senha -->
+    <div class="modal fade" id="change-password-modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Alterar Senha</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="change-password-form">
+                        <div class="mb-3">
+                            <label for="current-password" class="form-label">Senha Atual</label>
+                            <input type="password" class="form-control" id="current-password" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="new-password" class="form-label">Nova Senha</label>
+                            <input type="password" class="form-control" id="new-password" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirm-password" class="form-label">Confirmar Nova Senha</label>
+                            <input type="password" class="form-control" id="confirm-password" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="save-password-btn">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- JavaScript Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- JavaScript Fullcalendar -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales/pt-br.js"></script>
+    
+    <!-- JavaScript Personalizado -->
+    <script src="../js/auth.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/schedule.js"></script>
+</body>
+</html>

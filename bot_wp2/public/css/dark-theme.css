@@ -1,0 +1,108 @@
+/* Dark Theme for WhatsApp Bot Admin */
+
+:root {
+    /* General Colors */
+    --bg-color: #1a1a27;
+    --text-color: #e4e6ef;
+    --text-muted: #9899ac;
+    --border-color: #2b2b40;
+    
+    /* Sidebar */
+    --sidebar-bg-color: #1e1e2d;
+    --sidebar-text-color: #9899ac;
+    --sidebar-border-color: #2b2b40;
+    --sidebar-active-bg: #1b1b29;
+    --sidebar-active-color: #4e73df;
+    
+    /* Cards */
+    --card-bg-color: #1e1e2d;
+    --card-header-bg: #1b1b29;
+    
+    /* Table */
+    --table-header-bg: #1b1b29;
+    
+    /* Form */
+    --input-bg-color: #1b1b29;
+    
+    /* Brand Colors */
+    --primary-color: #4e73df;
+    --primary-rgb: 78, 115, 223;
+    --success-color: #1cc88a;
+    --success-rgb: 28, 200, 138;
+    --info-color: #36b9cc;
+    --info-rgb: 54, 185, 204;
+    --warning-color: #f6c23e;
+    --warning-rgb: 246, 194, 62;
+    --danger-color: #e74a3b;
+    --danger-rgb: 231, 74, 59;
+    --secondary-color: #858796;
+    --secondary-rgb: 133, 135, 150;
+    
+    /* Messages */
+    --message-incoming-bg: #1b1b29;
+    --message-incoming-color: #e4e6ef;
+    --message-outgoing-bg: #2d4a22;
+    --message-outgoing-color: #e4e6ef;
+  }
+  
+  /* Override Bootstrap elements */
+  .card {
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(0, 0, 0, 0.15);
+  }
+  
+  .btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%);
+  }
+  
+  .dropdown-menu {
+    background-color: var(--card-bg-color);
+    border-color: var(--border-color);
+  }
+  
+  .dropdown-item {
+    color: var(--text-color);
+  }
+  
+  .dropdown-item:hover {
+    background-color: var(--sidebar-active-bg);
+    color: var(--text-color);
+  }
+  
+  .dropdown-divider {
+    border-top-color: var(--border-color);
+  }
+  
+  .modal-content {
+    background-color: var(--card-bg-color);
+    border-color: var(--border-color);
+  }
+  
+  .modal-header, .modal-footer {
+    border-color: var(--border-color);
+  }
+  
+  /* Adjust text colors for status badges */
+  .text-warning {
+    color: #f8c246 !important;
+  }
+  
+  .text-danger {
+    color: #ea6759 !important;
+  }
+  
+  .text-success {
+    color: #34ce8a !important;
+  }
+  
+  .text-info {
+    color: #4cc3d9 !important;
+  }
+  
+  /* Theme specific icon */
+  #theme-toggle i.fas.fa-sun {
+    display: none;
+  }
+  
+  #theme-toggle i.fas.fa-moon {
+    display: inline-block;
+  }

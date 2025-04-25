@@ -1,0 +1,46 @@
+/* Light Theme for WhatsApp Bot Admin */
+
+:root {
+    /* General Colors */
+    --bg-color: #f8f9fc;
+    --text-color: #333;
+    --text-muted: #6c757d;
+    --border-color: #e3e6f0;
+    
+    /* Sidebar */
+    --sidebar-bg-color: #4e73df;
+    --sidebar-text-color: #fff;
+    --sidebar-border-color: rgba(255, 255, 255, 0.15);
+    --sidebar-active-bg: rgba(255, 255, 255, 0.25);
+    --sidebar-active-color: #fff;
+    
+    /* Cards */
+    --card-bg-color: #fff;
+    --card-header-bg: #f8f9fc;
+    
+    /* Table */
+    --table-header-bg: #f8f9fc;
+    
+    /* Form */
+    --input-bg-color: #fff;
+    
+    /* Brand Colors */
+    --primary-color: #4e73df;
+    --primary-rgb: 78, 115, 223;
+    --success-color: #1cc88a;
+    --success-rgb: 28, 200, 138;
+    --info-color: #36b9cc;
+    --info-rgb: 54, 185, 204;
+    --warning-color: #f6c23e;
+    --warning-rgb: 246, 194, 62;
+    --danger-color: #e74a3b;
+    --danger-rgb: 231, 74, 59;
+    --secondary-color: #858796;
+    --secondary-rgb: 133, 135, 150;
+    
+    /* Messages */
+    --message-incoming-bg: #f1f1f1;
+    --message-incoming-color: #333;
+    --message-outgoing-bg: #dcf8c6;
+    --message-outgoing-color: #333;
+  }

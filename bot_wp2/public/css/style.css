@@ -1,0 +1,390 @@
+/* Main Styles for WhatsApp Bot Admin */
+
+/* ====== Global Styles ====== */
+:root {
+    --sidebar-width: 250px;
+    --sidebar-collapsed-width: 70px;
+    --topbar-height: 60px;
+    --transition-speed: 0.3s;
+  }
+  
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color var(--transition-speed), color var(--transition-speed);
+  }
+  
+  /* ====== Authentication Screens ====== */
+  .auth-screen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 2rem 0;
+  }
+  
+  .auth-screen .card {
+    background-color: var(--card-bg-color);
+    border: none;
+    border-radius: 10px;
+  }
+  
+  /* ====== Sidebar ====== */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--sidebar-width);
+    height: 100vh;
+    background-color: var(--sidebar-bg-color);
+    color: var(--sidebar-text-color);
+    overflow-y: auto;
+    z-index: 1000;
+    transition: width var(--transition-speed), left var(--transition-speed);
+    display: flex;
+    flex-direction: column;
+  }
+  
+  body.sidebar-collapsed .sidebar {
+    width: var(--sidebar-collapsed-width);
+  }
+  
+  .sidebar-header {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid var(--sidebar-border-color);
+    height: var(--topbar-height);
+  }
+  
+  .sidebar-header h5 {
+    margin: 0 0 0 0.75rem;
+    font-size: 1.1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    transition: opacity var(--transition-speed);
+  }
+  
+  body.sidebar-collapsed .sidebar-header h5 {
+    opacity: 0;
+  }
+  
+  .sidebar-body {
+    flex: 1;
+    padding: 1rem 0;
+  }
+  
+  .sidebar-body .nav-link {
+    color: var(--sidebar-text-color);
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.25rem;
+    display: flex;
+    align-items: center;
+    border-radius: 0;
+  }
+  
+  .sidebar-body .nav-link i {
+    font-size: 1.1rem;
+    min-width: 1.75rem;
+    text-align: center;
+  }
+  
+  .sidebar-body .nav-link:hover, 
+  .sidebar-body .nav-link.active {
+    background-color: var(--sidebar-active-bg);
+    color: var(--sidebar-active-color);
+  }
+  
+  .sidebar-body .nav-link span {
+    white-space: nowrap;
+    overflow: hidden;
+    margin-left: 0.75rem;
+    transition: opacity var(--transition-speed);
+  }
+  
+  body.sidebar-collapsed .sidebar-body .nav-link span {
+    opacity: 0;
+  }
+  
+  .sidebar-footer {
+    padding: 1rem;
+    border-top: 1px solid var(--sidebar-border-color);
+  }
+  
+  .sidebar-footer a {
+    color: var(--sidebar-text-color);
+    display: block;
+    padding: 0.5rem;
+    text-decoration: none;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  
+  .sidebar-footer a:hover {
+    color: var(--sidebar-active-color);
+  }
+  
+  .theme-toggle {
+    margin-bottom: 0.5rem;
+  }
+  
+  .sidebar-footer a span {
+    margin-left: 0.75rem;
+    transition: opacity var(--transition-speed);
+  }
+  
+  body.sidebar-collapsed .sidebar-footer a span {
+    opacity: 0;
+  }
+  
+  /* ====== Main Content ====== */
+  .main-content {
+    margin-left: var(--sidebar-width);
+    transition: margin var(--transition-speed);
+  }
+  
+  body.sidebar-collapsed .main-content {
+    margin-left: var(--sidebar-collapsed-width);
+  }
+  
+  /* ====== Top Navbar ====== */
+  .topbar {
+    height: var(--topbar-height);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+  }
+  
+  .sidebar-toggle {
+    padding: 0.5rem;
+    margin-right: 0.75rem;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+  }
+  
+  .sidebar-toggle:hover {
+    color: var(--text-color);
+  }
+  
+  .connection-status i {
+    font-size: 0.75rem;
+  }
+  
+  .user-name {
+    font-weight: 500;
+  }
+  
+  /* ====== Page Container ====== */
+  .page-container {
+    padding: 1.5rem;
+  }
+  
+  .page-content {
+    display: none;
+  }
+  
+  .active-page {
+    display: block;
+  }
+  
+  /* ====== Cards ====== */
+  .card {
+    background-color: var(--card-bg-color);
+    border: none;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+    border-radius: 0.35rem;
+  }
+  
+  .card-header {
+    background-color: var(--card-header-bg);
+    border-bottom: 1px solid var(--border-color);
+    padding: 0.75rem 1.25rem;
+  }
+  
+  .border-left-primary {
+    border-left: 0.25rem solid var(--primary-color) !important;
+  }
+  
+  .border-left-success {
+    border-left: 0.25rem solid var(--success-color) !important;
+  }
+  
+  .border-left-info {
+    border-left: 0.25rem solid var(--info-color) !important;
+  }
+  
+  .border-left-warning {
+    border-left: 0.25rem solid var(--warning-color) !important;
+  }
+  
+  /* ====== Tables ====== */
+  .table-responsive {
+    overflow-x: auto;
+  }
+  
+  .table th {
+    background-color: var(--table-header-bg);
+    border-color: var(--border-color);
+  }
+  
+  .table td {
+    vertical-align: middle;
+    border-color: var(--border-color);
+  }
+  
+  /* ====== Forms ====== */
+  .form-control, .form-select {
+    background-color: var(--input-bg-color);
+    border-color: var(--border-color);
+    color: var(--text-color);
+  }
+  
+  .form-control:focus, .form-select:focus {
+    background-color: var(--input-bg-color);
+    border-color: var(--primary-color);
+    color: var(--text-color);
+    box-shadow: 0 0 0 0.25rem rgba(var(--primary-rgb), 0.25);
+  }
+  
+  .form-label {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+  
+  /* ====== Charts ====== */
+  .chart-area {
+    position: relative;
+    height: 300px;
+    margin: 0 auto;
+  }
+  
+  .chart-pie {
+    position: relative;
+    height: 300px;
+    margin: 0 auto;
+  }
+  
+  /* ====== Responsive ====== */
+  @media (max-width: 768px) {
+    .sidebar {
+      left: calc(-1 * var(--sidebar-width));
+    }
+    
+    body.sidebar-open .sidebar {
+      left: 0;
+    }
+    
+    .main-content {
+      margin-left: 0;
+    }
+    
+    body.sidebar-open .main-content {
+      margin-left: 0;
+    }
+    
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.4);
+      z-index: 999;
+    }
+    
+    body.sidebar-open .overlay {
+      display: block;
+    }
+  }
+  
+  /* ====== Utils ====== */
+  .text-xs {
+    font-size: 0.7rem;
+  }
+  
+  .font-weight-bold {
+    font-weight: 700 !important;
+  }
+  
+  /* ====== Loaders ====== */
+  .loader {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border: 3px solid rgba(var(--primary-rgb), 0.3);
+    border-radius: 50%;
+    border-top-color: var(--primary-color);
+    animation: spin 1s ease-in-out infinite;
+  }
+  
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+  
+  /* ====== Clients Page ====== */
+  .client-card {
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  
+  .client-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  /* ====== Menu Editor ====== */
+  .menu-card {
+    margin-bottom: 1rem;
+  }
+  
+  .menu-option {
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.25rem;
+    margin-bottom: 0.5rem;
+    background-color: var(--card-bg-color);
+  }
+  
+  .menu-option-drag-handle {
+    cursor: move;
+    padding: 0.25rem;
+  }
+  
+  /* ====== Messages History ====== */
+  .message-item {
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    max-width: 75%;
+    margin-bottom: 1rem;
+  }
+  
+  .message-incoming {
+    background-color: var(--message-incoming-bg);
+    color: var(--message-incoming-color);
+    align-self: flex-start;
+  }
+  
+  .message-outgoing {
+    background-color: var(--message-outgoing-bg);
+    color: var(--message-outgoing-color);
+    align-self: flex-end;
+  }
+  
+  .message-time {
+    font-size: 0.7rem;
+    opacity: 0.7;
+    text-align: right;
+    margin-top: 0.25rem;
+  }
+  
+  .messages-container {
+    height: 400px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+  }

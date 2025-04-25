@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações | WhatsApp Bot</title>
+    
+    <!-- CSS Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- CSS Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    
+    <!-- CSS Personalizado -->
+    <link rel="stylesheet" href="../css/style.css">
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar -->
+        <div class="border-end bg-white" id="sidebar-wrapper">
+            <div class="sidebar-heading border-bottom bg-light">
+                <img src="../img/logo.png" alt="Logo" class="sidebar-logo">
+                <span>WhatsApp Bot</span>
+            </div>
+            <div class="list-group list-group-flush">
+                <a href="dashboard.html" class="list-group-item list-group-item-action p-3">
+                    <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+                </a>
+                <a href="clients.html" class="list-group-item list-group-item-action p-3">
+                    <i class="fas fa-users me-2"></i> Clientes
+                </a>
+                <a href="menus.html" class="list-group-item list-group-item-action p-3">
+                    <i class="fas fa-sitemap me-2"></i> Menus
+                </a>
+                <a href="connections.html" class="list-group-item list-group-item-action p-3">
+                    <i class="fas fa-plug me-2"></i> Conexões
+                </a>
+                <a href="messages-config.html" class="list-group-item list-group-item-action p-3">
+                    <i class="fas fa-comment-dots me-2"></i> Mensagens
+                </a>
+                <a href="agents.html" class="list-group-item list-group-item-action p-3">
+                    <i class="fas fa-headset me-2"></i> Atendentes
+                </a>
+                <a href="ratings.html" class="list-group-item list-group-item-action p-3">
+                    <i class="fas fa-star me-2"></i> Avaliações
+                </a>
+                <a href="schedule.html" class="list-group-item list-group-item-action p-3">
+                    <i class="fas fa-calendar-alt me-2"></i> Agenda
+                </a>
+                <a href="settings.html" class="list-group-item list-group-item-action p-3 active admin-only">
+                    <i class="fas fa-cogs me-2"></i> Configurações
+                </a>
+            </div>
+        </div>
+        
+        <!-- Conteúdo da Página -->
+        <div id="page-content-wrapper">
+            <!-- Navbar Superior -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                <div class="container-fluid">
+                    <button class="btn btn-primary" id="sidebarToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img src="../img/user-avatar.png" alt="Avatar" class="user-avatar" id="user-avatar">
+                                    <span id="user-name">Usuário</span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="#" id="change-password-btn">
+                                        <i class="fas fa-key me-2"></i> Alterar Senha
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#" id="logout-btn">
+                                        <i class="fas fa-sign-out-alt me-2"></i> Sair
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            
+            <!-- Conteúdo Principal -->
+            <div class="container-fluid px-4 py-4" id="settings-page">
+                <h1 class="mb-4">Configurações do Sistema</h1>
+                
+                <!-- Navegação em abas para diferentes categorias de configurações -->
+                <ul class="nav nav-tabs mb-4" id="settingsTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="general-tab" data-bs-toggle="tab" data-bs-target="#general-pane" type="button" role="tab" aria-controls="general-pane" aria-selected="true">
+                            <i class="fas fa-sliders-h me-2"></i> Geral
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="whatsapp-tab" data-bs-toggle="tab" data-bs-target="#whatsapp-pane" type="button" role="tab" aria-controls="whatsapp-pane" aria-selected="false">
+                            <i class="fab fa-whatsapp me-2"></i> WhatsApp
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="business-tab" data-bs-toggle="tab" data-bs-target="#business-pane" type="button" role="tab" aria-controls="business-pane" aria-selected="false">
+                            <i class="fas fa-briefcase me-2"></i> Negócio
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="notification-tab" data-bs-toggle="tab" data-bs-target="#notification-pane" type="button" role="tab" aria-controls="notification-pane" aria-selected="false">
+                            <i class="fas fa-bell me-2"></i> Notificações
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="advanced-tab" data-bs-toggle="tab" data-bs-target="#advanced-pane" type="button" role="tab" aria-controls="advanced-pane" aria-selected="false">
+                            <i class="fas fa-code me-2"></i> Avançado
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="backup-tab" data-bs-toggle="tab" data-bs-target="#backup-pane" type="button" role="tab" aria-controls="backup-pane" aria-selected="false">
+                            <i class="fas fa-database me-2"></i> Backup
+                        </button>
+                    </li>
+                </ul>
+                
+                <!-- Conteúdo das abas -->
+                <div class="tab-content" id="settingsTabContent">
+                    <!-- Configurações Gerais -->
+                    <div class="tab-pane fade show active" id="general-pane" role="tabpanel" aria-labelledby="general-tab">
+                        <div class="card mb-4">
+                            <div class="card-header bg-primary text-white">
+                                <h5 class="mb-0">Configurações Gerais</h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="general-settings-form">
+                                    <div class="mb-3">
+                                        <label for="company-name" class="form-label">Nome da Empresa</label>
+                                        <input type="text" class="form-control" id="company-name" placeholder="Nome da sua empresa">
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="company-phone" class="form-label">Telefone Principal</label>
+                                        <input type="tel" class="form-control" id="company-phone" placeholder="(00) 00000-0000">
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="company-email" class="form-label">E-mail</label>
+                                        <input type="email" class="form-control" id="company-email" placeholder="contato@suaempresa.com">
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="company-address" class="form-label">Endereço</label>
+                                        <input type="text" class="form-control" id="company-address" placeholder="Endereço da empresa">
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="timezone" class="form-label">Fuso Horário</label>
+                                        <select class="form-select" id="timezone">
+                                            <option value="America/Sao_Paulo">Brasília (GMT-3)</option>
+                                            <option value="America/Manaus">Manaus (GMT-4)</option>
+                                            <option value="America/Rio_Branco">Rio Branco (GMT-5)</option>
+                                            <option value="America/Noronha">Fernando de Noronha (GMT-2)</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="date-format" class="form-label">Formato de Data</label>
+                                        <select class="form-select" id="date-format">
+                                            <option value="DD/MM/YYYY">DD/MM/YYYY</option>
+                                            <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+                                            <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="time-format" class="form-label">Formato de Hora</label>
+                                        <select class="form-select" id="time-format">
+                                            <option value="24h">24 horas</option>
+                                            <option value="12h">12 horas (AM/PM)</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="default-language" class="form-label">Idioma Padrão</label>
+                                        <select class="form-select" id="default-language">
+                                            <option value="pt-BR">Português (Brasil)</option>
+                                            <option value="en-US">English (US)</option>
+                                            <option value="es-ES">Español</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label class="form-label">Tema da Interface</label>
+                                        <div class="d-flex">
+                                            <div class="form-check me-3">
+                                                <input class="form-check-input" type="radio" name="theme" id="theme-light" value="light" checked>
+                                                <label class="form-check-label" for="theme-light">
+                                                    Claro
+                                                </label>
+                                            </div>
+                                            <div class="form-check me-3">
+                                                <input class="form-check-input" type="radio" name="theme" id="theme-dark" value="dark">
+                                                <label class="form-check-label" for="theme-dark">
+                                                    Escuro
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="theme" id="theme-auto" value="auto">
+                                                <label class="form-check-label" for="theme-auto">
+                                                    Automático
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="company-logo" class="form-label">Logo da Empresa</label>
+                                        <input class="form-control" type="file" id="company-logo" accept="image/*">
+                                        <div class="form-text">Formatos aceitos: JPG, PNG, GIF. Tamanho máximo: 2MB.</div>
+                                    </div>
+                                    
+                                    <div class="d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-save me-2"></i> Salvar
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Configurações de WhatsApp -->
+                    <div class="tab-pane fade" id="whatsapp-pane" role="tabpanel" aria-labelledby="whatsapp-tab">
+                        <div class="card mb-4">
+                            <div class="card-header bg-success text-white">
+                                <h5 class="mb-0">Configurações do WhatsApp</h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="whatsapp-settings-form">
+                                    <div class="mb-3">
+                                        <label for="session-timeout" class="form-label">Tempo de Expiração da Sessão</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" id="session-timeout" min="1" value="30">
+                                            <span class="input-group-text">minutos</span>
+                                        </div>
+                                        <div class="form-text">Tempo máximo para considerar uma sessão ativa.</div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="max-sessions" class="form-label">Máximo de Sessões Simultâneas</label>
+                                        <input type="number" class="form-control" id="max-sessions" min="1" value="5">
+                                        <div class="form-text">Número máximo de sessões que podem estar ativas ao mesmo tempo.</div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="reconnect-interval" class="form-label">Intervalo de Reconexão</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" id="reconnect-interval" min="1" value="10">
+                                            <span class="input-group-text">segundos</span>
+                                        </div>
+                                        <div class="form-text">Tempo de espera antes de tentar reconectar automaticamente.</div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="admin-command-prefix" class="form-label">Prefixo de Comando Administrativo</label>
+                                        <input type="text" class="form-control" id="admin-command-prefix" placeholder="!admin">
+                                        <div class="form-text">Prefixo para comandos administrativos enviados via WhatsApp.</div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="reply-timeout" class="form-label">Tempo Máximo de Espera por Resposta</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" id="reply-timeout" min="1" value="300">
+                                            <span class="input-group-text">segundos</span>
+                                        </div>
+                                        <div class="form-text">Tempo máximo para esperar resposta do usuário.</div>
+                                    </div>
+                                    
+                                    <div class="mb-3 form-check">
+                                        <input type="checkbox" class="form-check-input" id="archive-chats" checked>
+                                        <label class="form-check-label" for="archive-chats">Arquivar conversas antigas automaticamente</label>
+                                    </div>
+                                    
+                                    <div class="mb-3 form-check">
+                                        <input type="checkbox" class="form-check-input" id="save-media" checked>
+                                        <label class="form-check-label" for="save-media">Salvar arquivos de mídia recebidos</label>
+                                    </div>
+                                    
+                                    <div class="mb-3 form-check">
+                                        <input type="checkbox" class="form-check-input" id="auto-restart" checked>
+                                        <label class="form-check-label" for="auto-restart">Reiniciar automaticamente em caso de falha</label>
+                                    </div>
+                                    
+                                    <div class="d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-success">
+                                            <i class="fas fa-save me-2"></i> Salvar
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Configurações de Negócio -->
+                    <div class="tab-pane fade" id="business-pane" role="tabpanel" aria-labelledby="business-tab">
+                        <div class="card mb-4">
+                            <div class="card-header bg-info text-white">
+                                <h5 class="mb-0">Configurações de Negócio</h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="business-settings-form">
+                                    <div class="mb-3">
+                                        <label class="form-label">Horário de Funcionamento</label>
+                                        <div class="row g-3">
+                                            <div class="col-md-6">
+                                                <div class="input-group">
+                                                    <span class="input-group-text">Início</span>
+                                                    <input type="time" class="form-control" id="business-hours-start" value="08:00">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="input-group">
+                                                    <span class="input-group-text">Fim</span>
+                                                    <input type="time" class="form-control" id="business-hours-end" value="18:00">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label class="form-label">Dias de Funcionamento</label>
+                                        <div class="d-flex flex-wrap">
+                                            <div class="form-check me-3 mb-2">
+                                                <input class="form-check-input" type="checkbox" id="weekday-0">
+                                                <label class="form-check-label" for="weekday-0">Domingo</label>
+                                            </div>
+                                            <div class="form-check me-3 mb-2">
+                                                <input class="form-check-input" type="checkbox" id="weekday-1" checked>
+                                                <label class="form-check-label" for="weekday-1">Segunda</label>
+                                            </div>
+                                            <div class="form-check me-3 mb-2">
+                                                <input class="form-check-input" type="checkbox" id="weekday-2" checked>
+                                                <label class="form-check-label" for="weekday-2">Terça</label>
+                                            </div>
+                                            <div class="form-check me-3 mb-2">
+                                                <input class="form-check-input" type="checkbox" id="weekday-3" checked>
+                                                <label class="form-check-label" for="weekday-3">Quarta</label>
+                                            </div>
+                                            <div class="form-check me-3 mb-2">
+                                                <input class="form-check-input" type="checkbox" id="weekday-4" checked>
+                                                <label class="form-check-label" for="weekday-4">Quinta</label>
+                                            </div>
+                                            <div class="form-check me-3 mb-2">
+                                                <input class="form-check-input" type="checkbox" id="weekday-5" checked>
+                                                <label class="form-check-label" for="weekday-5">Sexta</label>
+                                            </div>
+                                            <div class="form-check mb-2">
+                                                <input class="form-check-input" type="checkbox" id="weekday-6">
+                                                <label class="form-check-label" for="weekday-6">Sábado</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="visit-duration" class="form-label">Duração Padrão das Visitas</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" id="visit-duration" min="15" value="60">
+                                            <span class="input-group-text">minutos</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="min-interval" class="form-label">Intervalo Mínimo entre Agendamentos</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" id="min-interval" min="0" value="30">
+                                            <span class="input-group-text">minutos</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="min-advance-time" class="form-label">Tempo Mínimo de Antecedência para Agendamento</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" id="min-advance-time" min="1" value="24">
+                                            <span class="input-group-text">horas</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="service-types" class="form-label">Tipos de Serviço</label>
+                                        <textarea class="form-control" id="service-types" rows="3" placeholder="Um tipo de serviço por linha">Instalação
+Manutenção
+Suporte
+Visita Técnica
+Configuração
+Outro</textarea>
+                                        <div class="form-text">Digite um tipo de serviço por linha.</div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="postsale-wait-days" class="form-label">Tempo de Espera para Pesquisa Pós-venda</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" id="postsale-wait-days" min="1" value="1">
+                                            <span class="input-group-text">dias</span>
+                                        </div>
+                                        <div class="form-text">Tempo de espera após a conclusão do serviço para enviar pesquisa de satisfação.</div>
+                                    </div>
+                                    
+                                    <div class="d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-info">
+                                            <i class="fas fa-save me-2"></i> Salvar
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Configurações de Notificações -->
+                    <div class="tab-pane fade" id="notification-pane" role="tabpanel" aria-labelledby="notification-tab">
+                        <div class="card mb-4">
+                            <div class="card-header bg-warning text-dark">
+                                <h5 class="mb-0">Configurações de Notificações</h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="notification-settings-form">
+                                    <div class="mb-3">
+                                        <label for="reminder-minutes" class="form-label">Antecedência para Lembretes de Agendamento</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" id="reminder-minutes" min="15" value="60">
+                                            <span class="input-group-text">minutos</span>
+                                        </div>
+                                        <div class="form-text">Tempo antes do agendamento para enviar lembretes.</div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label class="form-label">Tipos de Notificações Ativas</label>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox" id="notify-appointment-reminder" checked>
+                                            <label class="form-check-label" for="notify-appointment-reminder">
+                                                Lembrete de Agendamento
+                                            </label>
+                                        </div>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox" id="notify-invoice-due" checked>
+                                            <label class="form-check-label" for="notify-invoice-due">
+                                                Vencimento de Boleto
+                                            </label>
+                                        </div>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox" id="notify-invoice-paid" checked>
+                                            <label class="form-check-label" for="notify-invoice-paid">
+                                                Confirmação de Pagamento
+                                            </label>
+                                        </div>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox" id="notify-appointment-created" checked>
+                                            <label class="form-check-label" for="notify-appointment-created">
+                                                Criação de Agendamento
+                                            </label>
+                                        </div>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox" id="notify-appointment-cancelled" checked>
+                                            <label class="form-check-label" for="notify-appointment-cancelled">
+                                                Cancelamento de Agendamento
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="notify-postsale-survey" checked>
+                                            <label class="form-check-label" for="notify-postsale-survey">
+                                                Pesquisa de Satisfação
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label class="form-label">Notificações para Atendentes</label>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox" id="notify-agent-new-message" checked>
+                                            <label class="form-check-label" for="notify-agent-new-message">
+                                                Nova Mensagem Recebida
+                                            </label>
+                                        </div>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox" id="notify-agent-chat-assigned" checked>
+                                            <label class="form-check-label" for="notify-agent-chat-assigned">
+                                                Chat Atribuído
+                                            </label>
+                                        </div>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox" id="notify-agent-appointment" checked>
+                                            <label class="form-check-label" for="notify-agent-appointment">
+                                                Novo Agendamento
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="notify-agent-rating" checked>
+                                            <label class="form-check-label" for="notify-agent-rating">
+                                                Nova Avaliação
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label class="form-label">Método de Notificação para Atendentes</label>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox" id="notify-method-web" checked>
+                                            <label class="form-check-label" for="notify-method-web">
+                                                Notificações no Navegador
+                                            </label>
+                                        </div>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox" id="notify-method-email" checked>
+                                            <label class="form-check-label" for="notify-method-email">
+                                                E-mail
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="notify-method-whatsapp">
+                                            <label class="form-check-label" for="notify-method-whatsapp">
+                                                WhatsApp
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-warning text-dark">
+                                            <i class="fas fa-save me-2"></i> Salvar
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Configurações Avançadas -->
+                    <div class="tab-pane fade" id="advanced-pane" role="tabpanel" aria-labelledby="advanced-tab">
+                        <div class="card mb-4">
+                            <div class="card-header bg-danger text-white">
+                                <h5 class="mb-0">Configurações Avançadas</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="alert alert-warning mb-4">
+                                    <i class="fas fa-exclamation-triangle me-2"></i> <strong>Atenção!</strong> Alterar estas configurações pode afetar o funcionamento do sistema. Proceda com cautela.
+                                </div>
+                                
+                                <form id="advanced-settings-form">
+                                    <div class="mb-3">
+                                        <label for="debug-mode" class="form-label">Modo de Depuração</label>
+                                        <select class="form-select" id="debug-mode">
+                                            <option value="off">Desativado</option>
+                                            <option value="errors">Apenas Erros</option>
+                                            <option value="warnings">Erros e Avisos</option>
+                                            <option value="info">Informações Completas</option>
+                                            <option value="verbose">Detalhado</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="log-level" class="form-label">Nível de Log</label>
+                                        <select class="form-select" id="log-level">
+                                            <option value="error">Erro</option>
+                                            <option value="warn">Aviso</option>
+                                            <option value="info" selected>Informação</option>
+                                            <option value="debug">Depuração</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="log-retention" class="form-label">Retenção de Logs</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" id="log-retention" min="1" value="30">
+                                            <span class="input-group-text">dias</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="api-rate-limit" class="form-label">Limite de Requisições API</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" id="api-rate-limit" min="1" value="100">
+                                            <span class="input-group-text">por minuto</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="message-queue-size" class="form-label">Tamanho da Fila de Mensagens</label>
+                                        <input type="number" class="form-control" id="message-queue-size" min="10" value="1000">
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="media-max-size" class="form-label">Tamanho Máximo para Mídia</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" id="media-max-size" min="1" value="16">
+                                            <span class="input-group-text">MB</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="cache-ttl" class="form-label">Tempo de Vida do Cache</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" id="cache-ttl" min="1" value="60">
+                                            <span class="input-group-text">minutos</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3 form-check">
+                                        <input type="checkbox" class="form-check-input" id="enable-webhook">
+                                        <label class="form-check-label" for="enable-webhook">Habilitar Webhook para Eventos</label>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="webhook-url" class="form-label">URL do Webhook</label>
+                                        <input type="url" class="form-control" id="webhook-url" placeholder="https://example.com/webhook">
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="webhook-secret" class="form-label">Chave Secreta do Webhook</label>
+                                        <input type="text" class="form-control" id="webhook-secret" placeholder="Chave secreta para autenticação">
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label class="form-label">Eventos para Enviar ao Webhook</label>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox" id="webhook-message" checked>
+                                            <label class="form-check-label" for="webhook-message">
+                                                Mensagens
+                                            </label>
+                                        </div>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox" id="webhook-status" checked>
+                                            <label class="form-check-label" for="webhook-status">
+                                                Mudanças de Status
+                                            </label>
+                                        </div>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox" id="webhook-schedule" checked>
+                                            <label class="form-check-label" for="webhook-schedule">
+                                                Agendamentos
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="webhook-errors">
+                                            <label class="form-check-label" for="webhook-errors">
+                                                Erros
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-danger">
+                                            <i class="fas fa-save me-2"></i> Salvar
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Backup e Restauração -->
+                    <div class="tab-pane fade" id="backup-pane" role="tabpanel" aria-labelledby="backup-tab">
+                        <div class="card mb-4">
+                            <div class="card-header bg-secondary text-white">
+                                <h5 class="mb-0">Backup e Restauração</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-4">
+                                    <h6>Realizar Backup</h6>
+                                    <p>Crie um backup completo do sistema, incluindo banco de dados, configurações e arquivos.</p>
+                                    <div class="d-flex">
+                                        <button type="button" class="btn btn-primary me-2" id="create-backup-btn">
+                                            <i class="fas fa-download me-2"></i> Criar Backup
+                                        </button>
+                                        <button type="button" class="btn btn-outline-primary" id="schedule-backup-btn">
+                                            <i class="fas fa-clock me-2"></i> Agendar Backup
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <h6>Backups Automáticos</h6>
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" id="enable-auto-backup" checked>
+                                        <label class="form-check-label" for="enable-auto-backup">
+                                            Habilitar backups automáticos
+                                        </label>
+                                    </div>
+                                    <div class="row g-3 mb-3">
+                                        <div class="col-md-6">
+                                            <label for="backup-frequency" class="form-label">Frequência</label>
+                                            <select class="form-select" id="backup-frequency">
+                                                <option value="daily">Diário</option>
+                                                <option value="weekly" selected>Semanal</option>
+                                                <option value="monthly">Mensal</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="backup-time" class="form-label">Horário</label>
+                                            <input type="time" class="form-control" id="backup-time" value="03:00">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="backup-retention" class="form-label">Retenção de Backups</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" id="backup-retention" min="1" value="30">
+                                            <span class="input-group-text">dias</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <h6>Backups Recentes</h6>
+                                    <div class="table-responsive">
+                                        <table class="table table-hover" id="backups-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Data</th>
+                                                    <th>Tamanho</th>
+                                                    <th>Tipo</th>
+                                                    <th>Status</th>
+                                                    <th>Ações</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td colspan="5" class="text-center">
+                                                        <div class="loader mt-3 mb-3"></div>
+                                                        <p>Carregando backups...</p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <h6>Restaurar Backup</h6>
+                                    <p>Restaure o sistema a partir de um arquivo de backup.</p>
+                                    <div class="mb-3">
+                                        <label for="restore-file" class="form-label">Arquivo de Backup</label>
+                                        <input class="form-control" type="file" id="restore-file" accept=".zip,.tar,.gz,.sql">
+                                    </div>
+                                    <div class="d-flex">
+                                        <button type="button" class="btn btn-warning" id="restore-backup-btn" disabled>
+                                            <i class="fas fa-upload me-2"></i> Restaurar Backup
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal Agendar Backup -->
+    <div class="modal fade" id="scheduleBackupModal" tabindex="-1" aria-labelledby="scheduleBackupModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="scheduleBackupModalLabel">Agendar Backup</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="schedule-backup-form">
+                        <div class="mb-3">
+                            <label for="schedule-backup-date" class="form-label">Data</label>
+                            <input type="date" class="form-control" id="schedule-backup-date" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="schedule-backup-time" class="form-label">Hora</label>
+                            <input type="time" class="form-control" id="schedule-backup-time" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="backup-description" class="form-label">Descrição</label>
+                            <input type="text" class="form-control" id="backup-description" placeholder="Backup agendado">
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="backup-with-media" checked>
+                            <label class="form-check-label" for="backup-with-media">
+                                Incluir arquivos de mídia
+                            </label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="confirm-schedule-backup-btn">Agendar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal Alterar Senha -->
+    <div class="modal fade" id="change-password-modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Alterar Senha</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="change-password-form">
+                        <div class="mb-3">
+                            <label for="current-password" class="form-label">Senha Atual</label>
+                            <input type="password" class="form-control" id="current-password" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="new-password" class="form-label">Nova Senha</label>
+                            <input type="password" class="form-control" id="new-password" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirm-password" class="form-label">Confirmar Nova Senha</label>
+                            <input type="password" class="form-control" id="confirm-password" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="save-password-btn">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- JavaScript Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- JavaScript Personalizado -->
+    <script src="../js/auth.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/settings.js"></script>
+</body>
+</html>
